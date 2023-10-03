@@ -91,51 +91,52 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  int status = 0;
+  int countR = 5; //red
+    int countY = 2; //yellow
+    int countG = 3; // green
+    while (1)
+    {
+    	// 1.1  red on
+  	   HAL_GPIO_WritePin(Led_red_GPIO_Port, Led_red_Pin,GPIO_PIN_RESET);
+  	   HAL_GPIO_WritePin(Led_yellow_GPIO_Port, Led_yellow_Pin, GPIO_PIN_SET);
+  	   HAL_GPIO_WritePin(Led_green_GPIO_Port, Led_green_Pin, GPIO_PIN_SET);
+  	  // 1.2 l2 green on
+  	   HAL_GPIO_WritePin(Led2_red_GPIO_Port, Led2_red_Pin, GPIO_PIN_SET);
+  	  HAL_GPIO_WritePin(Led2_yellow_GPIO_Port, Led2_yellow_Pin, GPIO_PIN_SET);
+  	  HAL_GPIO_WritePin(Led2_green_GPIO_Port, Led2_green_Pin, GPIO_PIN_RESET);
+  	  	if(countR==0) countR =5;
+  	  	for(int i=countR;i>=0;i--) {
+  	  	   display7SEG(i);
+  	  	   HAL_Delay(1000);
+  	  	}
+  	  //2.1 yellow on
+          HAL_GPIO_WritePin(Led_red_GPIO_Port, Led_red_Pin, GPIO_PIN_SET);
+          HAL_GPIO_WritePin(Led_yellow_GPIO_Port, Led_yellow_Pin, GPIO_PIN_RESET);
+          HAL_GPIO_WritePin(Led_green_GPIO_Port, Led_green_Pin, GPIO_PIN_SET);
+          // 1.2 l2 yellow on
+          HAL_GPIO_WritePin(Led2_red_GPIO_Port, Led2_red_Pin, GPIO_PIN_SET);
+          HAL_GPIO_WritePin(Led2_yellow_GPIO_Port, Led2_yellow_Pin, GPIO_PIN_RESET);
+          HAL_GPIO_WritePin(Led2_green_GPIO_Port, Led2_green_Pin, GPIO_PIN_SET);
+              if(countY==0) countY =2;
+              for(int i=countY;i>=0;i--) {
+                      display7SEG(i);
+                      HAL_Delay(1000);
+  	  }
+       //3.1 green on
+        HAL_GPIO_WritePin(Led_red_GPIO_Port, Led_red_Pin, GPIO_PIN_SET);
+        HAL_GPIO_WritePin(Led_yellow_GPIO_Port, Led_yellow_Pin, GPIO_PIN_SET);
+        HAL_GPIO_WritePin(Led_green_GPIO_Port, Led_green_Pin, GPIO_PIN_RESET);
+        // 1.2 l2 _red on
+        HAL_GPIO_WritePin(Led2_red_GPIO_Port, Led2_red_Pin, GPIO_PIN_RESET);
+        HAL_GPIO_WritePin(Led2_yellow_GPIO_Port, Led2_yellow_Pin, GPIO_PIN_SET);
+        HAL_GPIO_WritePin(Led2_green_GPIO_Port, Led2_green_Pin, GPIO_PIN_SET);
+        if(countG==0) countG =3;
+              for(int i=countG;i>=0;i--) {
+                       display7SEG(i);
+  	 		HAL_Delay(1000);
+  	   }
+    }
 
-  while (1)
-  {
-	  switch (status) {
-	  case 0:
-		  display7SEG(status);
-		  break;
-	  case 1:
-		 display7SEG(status);
-			  break;
-	  case 2:
-		  display7SEG(status);
-			  break;
-	  case 3:
-		 display7SEG(status);
-			  break;
-	  case 4:
-		  display7SEG(status);
-			  break;
-	  case 5:
-		 display7SEG(status);
-			  break;
-	  case 6:
-		 display7SEG(status);
-			  break;
-	  case 7:
-		 display7SEG(status);
-			  break;
-	  case 8:
-		 display7SEG(status);
-			  break;
-	  case 9:
-		  display7SEG(status);
-			  break;
-	  default:
-		  break;
-	  }
-	 status = (status+1)%10;
-	 HAL_Delay(1000);
-    /* USER CODE END WHILE */
-
-    /* USER CODE BEGIN 3 */
-  }
-  /* USER CODE END 3 */
 }
 
 /**
