@@ -49,7 +49,7 @@
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 /* USER CODE BEGIN PFP */
-
+void clearAllClock();
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -221,7 +221,20 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
-
+void clearAllClock(){
+   HAL_GPIO_WritePin(Led_0_GPIO_Port, Led_0_Pin, GPIO_PIN_SET);
+	HAL_GPIO_WritePin(Led_1_GPIO_Port, Led_1_Pin, GPIO_PIN_SET);
+	HAL_GPIO_WritePin(Led_2_GPIO_Port, Led_2_Pin, GPIO_PIN_SET);
+	HAL_GPIO_WritePin(Led_3_GPIO_Port, Led_3_Pin, GPIO_PIN_SET);
+	HAL_GPIO_WritePin(Led_4_GPIO_Port, Led_4_Pin, GPIO_PIN_SET);
+	HAL_GPIO_WritePin(Led_5_GPIO_Port, Led_5_Pin, GPIO_PIN_SET);
+	HAL_GPIO_WritePin(Led_6_GPIO_Port, Led_6_Pin, GPIO_PIN_SET);
+	HAL_GPIO_WritePin(Led_7_GPIO_Port, Led_7_Pin, GPIO_PIN_SET);
+	HAL_GPIO_WritePin(Led_8_GPIO_Port, Led_8_Pin, GPIO_PIN_SET);
+	HAL_GPIO_WritePin(Led_9_GPIO_Port, Led_9_Pin, GPIO_PIN_SET);
+	HAL_GPIO_WritePin(Led_10_GPIO_Port, Led_10_Pin, GPIO_PIN_SET);
+	HAL_GPIO_WritePin(Led_11_GPIO_Port, Led_11_Pin, GPIO_PIN_SET);
+}
 /* USER CODE END 4 */
 
 /**
