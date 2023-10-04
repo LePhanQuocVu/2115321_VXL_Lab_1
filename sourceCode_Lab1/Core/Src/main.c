@@ -65,49 +65,70 @@ void clearNumberOnClock(int num);
   */
 int main(void)
 {
-  /* USER CODE BEGIN 1 */
+		int second = 0;
+		int minute = 0;
+		int hour = 0;
+		int sec = 2;
+		int blink_min = 10;
+		int sw_min = 0;
+		HAL_Init();
+		SystemClock_Config();
+		MX_GPIO_Init();
 
-  /* USER CODE END 1 */
+  while (1)
+  {
+	  if (second >= 60)
+	  {
+		  second = 0;
+		  minute++;
+		  if (minute >= 60)
+		  {
+			  minute = 0;
+			  clearNumberOnClock(hour);
+			  hour++;
+			  if (hour >= 12)
+			  {
+				 hour = 0;
+			  }
+		  }
+	  }
+	  if (sec <= 0)
+	  {
+		  second++;
+		  sec = 2;
+	  }
 
-  /* MCU Configuration--------------------------------------------------------*/
+	  if (second % 5 == 0)
+	  {
+		  if (second / 5 == 0) clearNumberOnClock(11);
+		  else clearNumberOnClock(second / 5- 1);
+		  setNumberOnClock(second / 5);
+	  }
 
-  /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
-  HAL_Init();
+	  setNumberOnClock(hour);
 
-  /* USER CODE BEGIN Init */
+	  if (blink_min <= 0)
+	  {
+		  switch (sw_min)
+		  {
+		  	  case 0:
+		  		  setNumberOnClock(minute / 5);
+		  		  sw_min = 1;
+		  		  break;
+		  	  case 1:
+				  clearNumberOnClock(minute / 5);
+				  sw_min = 0;
+				  break;
+		  }
+		  blink_min = 10;
+	  }
 
-  /* USER CODE END Init */
+	  blink_min--;
+	  sec--;
 
-  /* Configure the system clock */
-  SystemClock_Config();
-
-  /* USER CODE BEGIN SysInit */
-
-  /* USER CODE END SysInit */
-
-  /* Initialize all configured peripherals */
-  MX_GPIO_Init();
-  /* USER CODE BEGIN 2 */
-
-  /* USER CODE END 2 */
-
-  /* Infinite loop */
-  /* USER CODE BEGIN WHILE */
-  HAL_GPIO_WritePin(GPIOA, Led_0_Pin|Led_1_Pin|Led_2_Pin|Led_3_Pin
-                           |Led_4_Pin|Led_5_Pin|Led_6_Pin|Led_7_Pin
-                           |Led_8_Pin|Led_9_Pin|Led_10_Pin|Led_11_Pin, GPIO_PIN_SET);
-  int status = 0;
-while (1)
-{
-	setNumberOnClock(status);
-	HAL_Delay(1000);
-	clearNumberOnClock(status);
-	HAL_Delay(1000);
-
+	  HAL_Delay(10);
+  }
 }
-/* USER CODE END WHILE */
-}
-
 /**
   * @brief System Clock Configuration
   * @retval None
