@@ -91,22 +91,45 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+  int countR = 5;
+  int countY = 2;
+  int countG = 3;
+  int currentState = countR;
+  int count_on = 5;
+
   while (1)
   {		// red 5s
-	   HAL_GPIO_WritePin ( Led_red_GPIO_Port , Led_red_Pin , RESET) ;
-	   HAL_GPIO_WritePin ( Led_yellow_GPIO_Port , Led_yellow_Pin ,SET ) ;
-	   HAL_GPIO_WritePin ( Led_green_GPIO_Port , Led_green_Pin ,SET ) ;
-	   HAL_Delay (5000) ;
-	   // yellow 2s
-	   HAL_GPIO_WritePin ( Led_red_GPIO_Port , Led_red_Pin , SET );
-	   HAL_GPIO_WritePin ( Led_yellow_GPIO_Port , Led_yellow_Pin , RESET ) ;
-	   HAL_GPIO_WritePin ( Led_green_GPIO_Port , Led_green_Pin , SET ) ;
-	   HAL_Delay (2000) ;
-	   // green 3s
-	   HAL_GPIO_WritePin ( Led_red_GPIO_Port , Led_red_Pin , SET );
-	   HAL_GPIO_WritePin ( Led_yellow_GPIO_Port , Led_yellow_Pin ,SET ) ;
-	   HAL_GPIO_WritePin ( Led_green_GPIO_Port , Led_green_Pin , RESET ) ;
-	   HAL_Delay (3000) ;
+	  if(currentState==countR) {
+		  HAL_GPIO_WritePin(Led_red_GPIO_Port, Led_red_Pin, GPIO_PIN_RESET);
+		  HAL_GPIO_WritePin(Led_yellow_GPIO_Port, Led_yellow_Pin, GPIO_PIN_SET);
+		  HAL_GPIO_WritePin(Led_green_GPIO_Port, Led_green_Pin, GPIO_PIN_SET);
+		  count_on--;
+		  if(count_on == 0) {
+			  currentState = countY;
+			  count_on=2;
+		  }
+	  }
+	  else if(currentState==countY) {
+	 		  HAL_GPIO_WritePin(Led_red_GPIO_Port, Led_red_Pin, GPIO_PIN_SET);
+	 		  HAL_GPIO_WritePin(Led_yellow_GPIO_Port, Led_yellow_Pin, GPIO_PIN_RESET);
+	 		  HAL_GPIO_WritePin(Led_green_GPIO_Port, Led_green_Pin, GPIO_PIN_SET);
+	 		  count_on--;
+	 		  if(count_on==0) {
+	 			  currentState = countG;
+	 			  count_on =3;
+	 		  }
+	 	  }
+	  else if(currentState==countG) {
+	 		  HAL_GPIO_WritePin(Led_red_GPIO_Port, Led_red_Pin, GPIO_PIN_SET);
+	 		  HAL_GPIO_WritePin(Led_yellow_GPIO_Port, Led_yellow_Pin, GPIO_PIN_SET);
+	 		  HAL_GPIO_WritePin(Led_green_GPIO_Port, Led_green_Pin, GPIO_PIN_RESET);
+	 		  count_on--;
+	 		  if(count_on==0) {
+	 			  currentState = countR;
+	 			  count_on =5;
+	 		  }
+	 	  }
+	  HAL_Delay(1000);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
